@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width">
+  <meta name="description" content="ProtectJS is a dynamic type checking and enforcement class decorator that extends the window object.">
+	<title>ProtectJS</title>
+	<link href="style.css" rel="stylesheet" type="text/css" />
+	<script src="protect.min.js" type="module" async></script>
+</head>
+
+<body>
+	<header>
+		<h1><img src="pjs-logo.svg" alt="ProtectJS logo." > ProtectJS</h1>
+    <h2>Pledged to protect and serve Javascript classes.</h2>
+  </header>
+  <main>
+    <article id="top-content">
+      <i><img src="alarm-light.png" alt="Flashing alarm." class="flash"></i>
+      <div>
+      <h1><img src="js-logo.png" alt="Javascript" width="32rem"><span style="display:none">Javasript</span> has the right to remain protected.</h1>
+      <code>
+      <pre>
+/*
+
+ProtectJS is a dynamic type checking and enforcement class decorator that extends the window object: window.__Protect__
+
+A protected class can only be instanciated and accessed using the new reserved word.
+
+The first parameter must be a boolean value to determining if the protected class can be extended.
+
+Declare protected methods and properties by adding double underscores __ to the beginning of their name.
+
+*/
+
+const MyClass = __Protect__(true, class MyClass {
+  constructor() {
+
+    /*
+
+    __Debug__: You can enable debuging which will print out the class's protected properties and methods in the console.
+
+    */
+    this.__Debug__ = true
+
+    /*
+
+    __Interface__: Declare the class interface for method types in the constructer as an object.
+
+    */
+    this.__Interface__ = {
+
+      /*
+      
+      Public Methods: Methods do not have to take any arguments but you still need to specify a return type. Use the method name as a property of the interface.
+
+      */
+      publicMethod: {
+
+        /*
+        
+        Before Effect: This function will run before the function called and will pass along it's returned results as an argument out side of name arguments object.
+        
+        */
+        __before: params => {
+          return params
+        },
+
+        /*
+        
+        After Effect: This function will run after the function called and will have the results of the called function as it's only argument.
+
+        */
+        __after: results => results,
+
+        /*
+        
+        Parameter Type Check: the named argment's name must be the key and the value must a value JS type. You may use *, any or do not specify the named argument as a property to disable type checking.
+
+        */
+        string1: 'string',
+
+        /*
+        
+        Return Type Check: This is how you specifiy the type that must be returned from the function called. Before and after effects can return any type.
+
+        */
+        __return: 'string'
+      },
+
+      /*
+      
+      Protected Methods: Protected methods can not have before or after effects.
+
+      */
+      __protectedMethod: {
+        __return: 'function'
+      },
+
+    }
+  }
+)
+      </pre>
+      </code>
+      <p><a href="https://github.com/swvan/ProtectJS"><img src="gh-logo.png" alt="ProtectJS Github repository.">&nbsp;- Source</a></p>
+      </div>
+      <section>
+      <div>
+        <h3><img src="footprint.png" alt="ProtectJS logo." ><small>Small Footprint</small></h3>
+        <ul>
+          <li>2.8kb minified</li>
+          <li>Works asyncronously</li>
+          <li>No dependencies</li>
+        </ul>
+      </div>
+      <div>
+        <h3><img src="development.png" alt="ProtectJS logo." ><small>Any Project Ready</small></h3>
+        <ul>
+          <li>An easy-to-use class decorator</li>
+          <li>Modern and stable</li>
+          <li>No import necessary</li>
+        </ul>
+      </div>
+      <div>
+        <h3><img src="strong.png" alt="ProtectJS logo." ><small>Minimal Yet Powerful</small></h3>
+        <ul>
+          <li>Dynamic type checking</li>
+          <li>Restricted methods and properties</li>
+          <li>Custom insightful errors</li>
+        </ul>
+      </div>
+      </section>
+    </article>
+  </main>
+  <footer>
+    <br>
+    <p><a href="https://github.com/earlalex"><img src="gh-logo.png" alt="Github repository for user earlalex.">&nbsp;- earlalex</a></p>
+    <br>
+  </footer>
+	<script src="script.js" type="module" defer></script>
+</body>
+
+</html>
