@@ -18,10 +18,7 @@ window.__Protect__ = (__Extend__ = false, BaseClass) => {
           reference: {
             __default: 'Protected properties may not be accessed or set from outside of its class execution context',
             arguments: 'You must provide an object of named arguments in',
-          },
-          // log: {
-          //   openError: 'Failed to open indexedDB',
-          // }
+          }
         }
 
         const __Types__ = [
