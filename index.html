@@ -6,94 +6,99 @@
 	<meta name="viewport" content="width=device-width">
   <meta name="description" content="ProtectJS is a dynamic type checking and enforcement class decorator that extends the window object.">
 	<title>ProtectJS</title>
-	<link href="style.css" rel="stylesheet" type="text/css" />
-	<script src="protect.min.js" type="module" async></script>
+  <link href="enlighterjs/enlighterjs.min.css" rel="stylesheet" type="text/css"/>
+	<link href="css/style.css" rel="stylesheet" type="text/css" />
+  <script type="module" src="js/protect.min.js"></script>
 </head>
 
 <body>
 	<header>
-		<h1><img src="pjs-logo.svg" alt="ProtectJS logo." > ProtectJS</h1>
+    <div>
+		<h1><img class="logo" src="img/pjs-logo.svg" alt="ProtectJS logo." > ProtectJS</h1>
     <h2>Pledged to protect and serve Javascript classes.</h2>
+    </div>
+    <p>Keep calm it's only <img class="logo" src="img/js-logo.png" alt="Javascript"><span style="display:none">Javasript</span></p>
   </header>
   <main>
-    <article id="top-content">
-      <i><img src="alarm-light.png" alt="Flashing alarm." class="flash"></i>
-      <div>
-      <h1><img src="js-logo.png" alt="Javascript" width="32rem"><span style="display:none">Javasript</span> has the right to remain protected.</h1>
+    <article>
+      <i><img src="img/alarm-light.png" alt="Flashing alarm." class="flash"></i>
+      <section>
+      <h1>Code has the right to remain protected.</h1>
+      <p><a href="https://github.com/earlalex/ProtectJS"><img src="img/gh-logo.png" alt="ProtectJS Github repository.">&nbsp;- Source</a><a href="https://github.com/earlalex"><img src="img/gh-logo.png" alt="Github repository for user earlalex.">&nbsp;- Author</a></p>
       <code>
       <pre>
-/*
+<blockquote>/*
 
-ProtectJS is a dynamic type checking and enforcement class decorator that extends the window object: window.__Protect__
+      ProtectJS is a dynamic type checking and enforcement class decorator that extends the window object: window.__Protect__
 
-A protected class can only be instanciated and accessed using the new reserved word.
+      A protected class can only be instanciated and accessed using the new reserved word.
 
-The first parameter must be a boolean value to determining if the protected class can be extended.
+      The first parameter must be a boolean value to determining if the protected class can be extended.
 
-Declare protected methods and properties by adding double underscores __ to the beginning of their name.
+      Declare protected methods and properties by adding double underscores __ to the beginning of their name.
 
-*/
+*/</blockquote>
 
-const MyClass = __Protect__(true, class MyClass {
+<i>const</i> <b>MyClass</b> = __Protect__(true, <i>class</i> <b>MyClass</b> {
   constructor() {
 
-    /*
+<blockquote>/*
 
     __Debug__: You can enable debuging which will print out the class's protected properties and methods in the console.
 
-    */
-    this.__Debug__ = true
+*/</blockquote>
+    <i>this</i>.__Debug__ = true
 
-    /*
+<blockquote>/*
 
     __Interface__: Declare the class interface for method types in the constructer as an object.
 
-    */
-    this.__Interface__ = {
+*/</blockquote>
+    <i>this</i>.__Interface__ = {
 
-      /*
+<blockquote>/*
       
       Public Methods: Methods do not have to take any arguments but you still need to specify a return type. Use the method name as a property of the interface.
 
-      */
+*/</blockquote>
       publicMethod: {
 
-        /*
+<blockquote>/*
         
         Before Effect: This function will run before the function called and will pass along it's returned results as an argument out side of name arguments object.
         
-        */
+*/</blockquote>
         __before: params => {
-          return params
+          <i>return</i> params
         },
 
-        /*
+<blockquote>/*
         
         After Effect: This function will run after the function called and will have the results of the called function as it's only argument.
 
-        */
+*/</blockquote>
         __after: results => results,
 
-        /*
+<blockquote>/*
         
         Parameter Type Check: the named argment's name must be the key and the value must a value JS type. You may use *, any or do not specify the named argument as a property to disable type checking.
 
-        */
+*/</blockquote>
         string1: 'string',
 
-        /*
+<blockquote>/*
         
         Return Type Check: This is how you specifiy the type that must be returned from the function called. Before and after effects can return any type.
 
-        */
+*/</blockquote>
         __return: 'string'
       },
 
-      /*
+<blockquote>/*
       
       Protected Methods: Protected methods can not have before or after effects.
 
-      */
+*/</blockquote>
       __protectedMethod: {
         __return: 'function'
       },
@@ -103,27 +108,27 @@ const MyClass = __Protect__(true, class MyClass {
 )
       </pre>
       </code>
-      <p><a href="https://github.com/swvan/ProtectJS"><img src="gh-logo.png" alt="ProtectJS Github repository.">&nbsp;- Source</a></p>
-      </div>
+
+      </section>
       <section>
       <div>
-        <h3><img src="footprint.png" alt="ProtectJS logo." ><small>Small Footprint</small></h3>
+        <h3><img src="img/footprint.png" alt="ProtectJS logo." ><small>Small Footprint</small></h3>
         <ul>
           <li>2.8kb minified</li>
-          <li>Works asyncronously</li>
+          <li>No importing</li>
           <li>No dependencies</li>
         </ul>
       </div>
       <div>
-        <h3><img src="development.png" alt="ProtectJS logo." ><small>Any Project Ready</small></h3>
+        <h3><img src="img/development.png" alt="ProtectJS logo." ><small>Runtime Ready</small></h3>
         <ul>
           <li>An easy-to-use class decorator</li>
+          <li>No event listeners</li>
           <li>Modern and stable</li>
-          <li>No import necessary</li>
         </ul>
       </div>
       <div>
-        <h3><img src="strong.png" alt="ProtectJS logo." ><small>Minimal Yet Powerful</small></h3>
+        <h3><img src="img/strong.png" alt="ProtectJS logo." ><small>Minimal Yet Powerful</small></h3>
         <ul>
           <li>Dynamic type checking</li>
           <li>Restricted methods and properties</li>
@@ -135,10 +140,11 @@ const MyClass = __Protect__(true, class MyClass {
   </main>
   <footer>
     <br>
-    <p><a href="https://github.com/earlalex"><img src="gh-logo.png" alt="Github repository for user earlalex.">&nbsp;- earlalex</a></p>
+    <p>Current Release: 5/1/2021 | Version: 1.0.0 | Opensource and free to use under the MIT License V3</p>
     <br>
   </footer>
-	<script src="script.js" type="module" defer></script>
+  <script src="enlighterjs/enlighterjs.min.js"></script>
+	<script src="js/script.js" type="module"></script>
 </body>
 
 </html>

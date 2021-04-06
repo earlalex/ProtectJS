@@ -104,7 +104,7 @@ console.log('Example: You can expose private properties through public functions
 console.info('- publicInterface:', Protected.publicInterface({}, '- You can bypass the type checking system but you must still obey return types.'))
 
 console.log('Example: Protected methods and properties are not accessible.')
-console.info('__protectedProperty', Protected.__protectedProperty)
+// console.info('__protectedProperty', Protected.__protectedProperty)
 // console.info('__protectedMethod',Protected.__protectedMethod({before:'yo'}))
 // console.info('- __Interface__:',Protected.__Interface__)
 
