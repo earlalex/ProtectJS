@@ -398,15 +398,10 @@ window.__Protect__ = (__Extend__ = false, BaseClass) => {
 
         const __ProtectedClass__ = new Proxy(this, __Handler__)
 
-        return Object
-          .freeze(
-            Object.seal(
-              __Extend__ ?
-                __ProtectedClass__ :
-                Object.preventExtensions(
-                  __ProtectedClass__
-                )
-            )
+        return __Extend__ ?
+          __ProtectedClass__ :
+          Object.preventExtensions(
+            __ProtectedClass__
           )
       }
     }
