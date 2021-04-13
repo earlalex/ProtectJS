@@ -1,406 +1,267 @@
-window.__Protect__ = (__Extend__ = false, BaseClass) => {
-  if (BaseClass.prototype.constructor)
-    return class ProtectedClass extends BaseClass {
-      constructor() {
-        super()
-
-        let __ProtectedAccess__ = false
-
-        const __ErrorMessages__ = {
-          type: {
-            __default: 'must be type',
-            parameter: 'is not a specified named argument or is not specified in the class interface',
-            interface: 'types can not be determined. There must be an interface object with your methods declared in the class constuctor',
-            effects: 'must be a function',
-            __return: 'must return type',
-            arguments: 'must have an object of parameter types specified in the class interface',
-          },
-          reference: {
-            __default: 'Protected properties may not be accessed or set from outside of its class execution context',
-            arguments: 'You must provide an object of named arguments in',
-          }
-        }
-
-        const __Types__ = [
-          'undefined',
-          'boolean',
-          'number',
-          'string',
-          'bigint',
-          'symbol',
-          'object',
-          'function',
-          'any',
-          '*',
-          'null'
-        ]
-
-        const __ClassName__ = this.name
-        const __DateTime__ = () => new Date().toString()
-        const __Version__ = this.__Version__ || 1
-        const __DocumentTitle__ = document.title
-        const __LastModified__ = document.lastModified
-        const __ClassID__ = this.__ClassID__ ||
-          btoa(`${
-            __Version__
-            }:${
-            __DocumentTitle__
-            }:${
-            __ClassName__
-            }`
-            .replace(/[^A-Z0-9]/ig, "_")
-          )
-        const __Debug__ = this.__Debug__ === true
-        const __IDBName__ = `Protect-${__DocumentTitle__}`
-        const __ReferenceError__ = (
-          __Property__,
-          message = __ErrorMessages__
-            .reference
-            .__default
-        ) => {
-
-          throw new ReferenceError(`${message}: ${__Property__}`)
-        }
-        const __TypeError__ = (
-          __Property__,
-          type,
-          message = __ErrorMessages__
-            .type
-            .__default
-        ) => {
-
-          throw new TypeError(`${
-            typeof __Property__ === 'string' ?
-              __Property__ :
-              __Property__.name
-            } ${message}: ${
-            typeof type === 'string' ?
-              type :
-              typeof type
-            }`)
-        }
-        const __ParameterCheck__ = (name, parameter, type) => {
-
-          if (!__Types__.includes(type))
-
-            __TypeError__(
-              name,
-              type,
-              __ErrorMessages__
-                .type
-                .parameter
-            )
-
-          if (type === '*' || type === 'any')
-            return true
-
-          if (
-            typeof parameter === 'undefined' ||
-            typeof parameter !== 'function' &&
-            parameter.length === 0
-          ) return false
-
-          if (
-            typeof parameter === String(type) ||
-            typeof type === 'object' &&
-            parameter instanceof type
-          )
-            return true
-
-          return false
-        }
-        const __ProtectCheck__ = (__Property__) => {
-
-          if (__Property__.indexOf('__') === 0)
-            return true
-
-          return false
-        }
-        const __Protect__ = {
-          Methods: [],
-          Properties: []
-        }
-
-        Object
-          .getOwnPropertyNames(this)
-          .filter(
-            __Property__ => {
-
-              if (__ProtectCheck__(__Property__))
-                __Protect__.Properties.push(__Property__)
-
-              return
-            }
-          )
-        Object
-          .getOwnPropertyNames(BaseClass.prototype)
-          .filter(
-            __Property__ => {
-
-              if (__ProtectCheck__(__Property__))
-                __Protect__.Methods.push(__Property__)
-              return
-            }
-          )
-        const __Protected__ = Object.freeze(__Protect__)
-        const __Handler__ = this.__Handler__ || {
-
-          get: (__Target__, __Property__) => {
-
-            if (
-              __Protected__
-                .Properties
-                .includes(__Property__) &&
-              !__ProtectedAccess__
-            )
-              __ReferenceError__(__Property__)
-
-            if (
-              __Protected__
-                .Methods
-                .includes(__Property__) &&
-              !__ProtectedAccess__
-            )
-              __ReferenceError__(__Property__)
-
-            if (
-              __ParameterCheck__(
-                __Property__,
-                this[__Property__],
-                'function'
-              )
-            ) {
-
-              if (__ProtectCheck__(__Property__))
-                __ReferenceError__(
-                  __Property__,
-                  __ErrorMessages__
-                    .reference
-                    .__default)
-
-              const __Method__ = this[__Property__]
-
-              let __ArgTypes__ = false
-
-              let __BeforeEffectCheck__ = false,
-                __AfterEffectCheck__ = false,
-                __ReturnTypeCheck__ = false,
-                __BeforeEffect__,
-                __AfterEffect__
-
-              if (
-                !this.__Interface__ &&
-                !Object.keys(this.__Interface__)
-                  .length !== 0 &&
-                !this.__Interface__[__Property__]
-              )
-                __TypeError__(
-                  __Property__,
-                  'undefined',
-                  __ErrorMessages__
-                    .type
-                    .interface
-                )
-
-
-              __ArgTypes__ = this.__Interface__[__Property__]
-
-              if (
-                !__ParameterCheck__(
-                  __Property__,
-                  __ArgTypes__,
-                  'object'
-                )
-              )
-                __TypeError__(
-                  __Property__,
-                  'undefined',
-                  __ErrorMessages__
-                    .type
-                    .interface
-                )
-
-              if (__ArgTypes__.__before) {
-
-
-                if (
-                  !__ParameterCheck__(
-                    '__before',
-                    __ArgTypes__
-                      .__before,
-                    'function'
-                  )
-                )
-                  __TypeError__(
-                    '__before',
-                    __ArgTypes__
-                      .__before,
-                    __ErrorMessages__
-                      .type
-                      .effects
-                  )
-
-                __BeforeEffect__ = __ArgTypes__
-                  .__before
-                __BeforeEffectCheck__ = true
-              }
-
-              if (
-                __ArgTypes__
-                  .__return
-              ) {
-                if (
-                  !__ParameterCheck__(
-                    '__return',
-                    __ArgTypes__
-                      .__return,
-                    'string'
-                  ) &&
-                  !__Types__
-                    .includes(
-                      __ArgTypes__
-                        .__return
-                    )
-                )
-                  __TypeError__(
-                    '__return',
-                    __ArgTypes__
-                      .__return,
-                    __ErrorMessages__
-                      .type
-                      .__return
-                  )
-              }
-
-              if (__ArgTypes__.__after) {
-                if (
-                  !__ParameterCheck__(
-                    '__after',
-                    __ArgTypes__
-                      .__after,
-                    'function'
-                  )
-                )
-                  __TypeError__(
-                    '__after',
-                    __ArgTypes__
-                      .__after,
-                    __ErrorMessages__
-                      .type
-                      .effects
-                  )
-              }
-
-              return (...args) => {
-
-                __ProtectedAccess__ = true
-
-                if (args.length === 0)
-                  __ReferenceError__(
-                    __Property__,
-                    __ErrorMessages__
-                      .reference
-                      .arguments
-                  )
-
-
-                if (__ArgTypes__)
-                  Object
-                    .keys(args[0])
-                    .map(
-                      __Arg__ => {
-
-                        if (
-                          !__ParameterCheck__(
-                            __Arg__,
-                            args[0][__Arg__],
-                            __ArgTypes__[__Arg__]
-                          )
-                        )
-
-                          __TypeError__(
-                            __Arg__,
-                            __ArgTypes__[__Arg__],
-                            __ErrorMessages__
-                              .type
-                              .parameter
-                          )
-                      }
-                    )
-
-                let __ApplyArgs__ = [...args]
-
-                if (__BeforeEffectCheck__) {
-
-                  const __BeforeResults__ = __BeforeEffect__(...args)
-
-                  __ApplyArgs__ = [...args, __BeforeResults__]
-                }
-
-                let __Results__ = __Method__
-                  .apply(
-                    this,
-                    __ApplyArgs__
-                  )
-
-                if (
-                  !__ParameterCheck__(
-                    __Property__,
-                    __Results__,
-                    __ArgTypes__.__return
-                  )
-                )
-                  __TypeError__(
-                    __Property__,
-                    __ArgTypes__.__return,
-                    __ErrorMessages__.type.__return
-                  )
-
-                if (__AfterEffectCheck__)
-                  __Results__ = __AfterEffect__(__Results__)
-
-                __ProtectedAccess__ = false
-
-                return __Results__
-
-              }
-            }
-
-            return this[__Property__]
-          },
-
-          set: (__Target__, __Property__, __Value__) => {
-
-            if (
-              __ParameterCheck__(
-                __Property__,
-                this[__Property__],
-                'function'
-              ) ||
-              __ProtectCheck__(__Property__)
-            )
-              __ReferenceError__(
-                __Property__,
-                __ErrorMessages__
-                  .reference
-                  .__default
-              )
-
-            return this[__Property__] = __Value__
-          }
-        }
-
-        if (__Debug__)
-          console.info('__Protected__', __Protected__)
-
-        const __ProtectedClass__ = new Proxy(this, __Handler__)
-
-        return __Extend__ ?
-          __ProtectedClass__ :
-          Object.preventExtensions(
-            __ProtectedClass__
-          )
+'use strict'
+window.$$Protect = ({ level = 3 }) => {
+  if (!window.$$) window.$$ = ({ $$, $$interface = false }) => {
+    if (level >= 1) {
+      const protectTypes = [
+        'string',
+        'number',
+        'boolean',
+        'bigint',
+        'symbol',
+        'object'
+      ]
+      const protectAlertHeaderStyles = () => {
+        return [
+          'background: #444444',
+          'color: #E3E3E3',
+          'display: block',
+          'text-shadow: 0 1px 0 rgba(0, 0, 0, 0.3)',
+          'box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24)',
+          'font-weight: bold',
+          'padding: 2px 15px'
+        ].join(';')
       }
+      const capitalize = string => (string[0].toUpperCase() + string.slice(1))
+      const getInstance = Function.prototype.call.bind(Object.prototype.toString)
+      const metadata = $$ => {
+        return {
+          name: $$ ?.name,
+          type: typeof $$,
+          instance: getInstance($$).replace('[object ', '').replace(']', ''),
+          properties: Object.keys($$ || {}).length ? Object.keys($$) : 0,
+          value: Object.values($$ || {}).lenth ? Object.values($$) : $$
+        }
+      }
+      const classCheck = $$ => {
+        return typeof $$ === 'function' &&
+          /^class\s/.test(Function.prototype.toString.call($$));
+      }
+      const protectAlert = ($$, property, value, type, message) => {
+
+        console.group('%c=$$= Protect JS', protectAlertHeaderStyles(), `〉〉〉〉 ${level >= 2 ? '🛑 Error!' : '⚠️ Alert!'}`)
+        switch (level) {
+          case 0:
+            return
+          case 1:
+            console.trace($$)
+            console.warn(message)
+            return console.groupEnd()
+          case 2:
+            console.trace($$)
+            console.error(message)
+            return console.groupEnd()
+          case 3:
+          default:
+            console.trace($$)
+            switch (type) {
+              case 'type':
+                throw new TypeError(message)
+              case 'reference':
+                throw new ReferenceError(message)
+              default:
+                return console.error(level, type, message)
+            }
+        }
+      }
+      const primitiveHandler = ({ type = false, before = false, after = false }) => {
+        return {
+          set: ($$, property, value) => {
+            if (before)
+              value = before(value)
+            if (type && typeof value !== type)
+              protectAlert($$, property, value, 'type', `The value ${level >= 2 ? 'must' : 'should'} be of type ${type[0].toUpperCase() + type.slice(1)} and you have provided a value of type ${metadata(value).instance}.`)
+            if (after) {
+              value = new Promise((resolve) => resolve(value)).then(result => {
+                return after(result)
+              })
+            }
+            return $$[property] = value
+          }
+        }
+      }
+      const arrayHandler = ({ type = false, before = false, after = false }) => {
+        return {
+          get: ($$, property, receiver) => {
+            if (property === 'push') {
+              const method = $$[property]
+              return (...args) => {
+                args.map(arg => {
+                  if (typeof arg !== type)
+                    protectAlert($$, property, receiver, 'type', `The value ${level >= 2 ? 'must' : 'should'} be of type ${type[0].toUpperCase() + type.slice(1)} and you have provided a value of type ${metadata(receiver).instance}.`)
+                })
+                method.apply($$, args)
+              }
+            }
+            return $$[property]
+          },
+          set: ($$, property, value) => {
+            if (before)
+              value = before(value)
+            if (!Array.isArray(value)) {
+              protectAlert($$, property, value, 'type', `This value ${level >= 2 ? 'must' : 'should'} be of type Array and you have provided a value of type ${metadata(value).instance}.`)
+            }
+            if (after) {
+              value = new Promise((resolve) => resolve(value)).then(result => {
+                return after(result)
+              })
+            }
+            return $$[property] = value
+          }
+        }
+      }
+      const objectHandler = ({ type = false, before = false, after = false }) => {
+        return {
+          get: ($$, property, receiver) => receiver,
+          set: ($$, property, value) => {
+            return $$[property] = Object.seal(new Proxy({ $$: value }, primitiveHandler({ type: type, before: before, after: after })))
+          }
+        }
+      }
+      const functionHandler = ({ types = false, before = false, after = false, returns = false }) => {
+        return {
+          get: ($$, property, receiver) => {
+            const method = receiver
+            return (...args) => {
+              let results
+              if (before) results = before(...args)
+              if (results) args[0].$$before = results
+              if (after) {
+                return new Promise((resolve) => {
+                  results = before ? results : $$[property](...args)
+                  resolve(results)
+                }).then(result => {
+                  results = after(result)
+                  if (returns) {
+                    if (!protectTypes.includes(returns))
+                      protectAlert($$, property, value, 'reference', `You may only set the return to a valide type.`)
+                    if (typeof results !== returns)
+                      protectAlert($$interface, property, value, 'type', `This function ${level >= 2 ? 'must' : 'should'} return a value of type ${capitalize(returns)} and it is instead a value of type ${metadata(results).instance}.`)
+                  }
+                  return results
+                })
+              }
+              if (returns && typeof results !== returns)
+                protectAlert($$, property, receiver, 'type', `This function ${level >= 2 ? 'must' : 'should'} return a value of type ${capitalize(returns)} and it is instead a value of type ${metadata(results).instance}.`)
+              results = $$[property](...args)
+              return results
+            }
+          },
+        }
+      }
+      const classHandler = ({ $$interface, $$protected, $$class }) => {
+        return {
+          get: ($$, property, receiver) => {
+            const $$protectedMasterArray = $$protected.properties.concat($$protected.methods)
+            const { instance, name = property } = metadata($$[property])
+            console.log($$interface[name])
+            const protectLevelTerm = level >= 2 ? 'must' : 'should'
+            if (!$$interface[name])
+              protectAlert($$, name, receiver, 'reference', `This property ${protectLevelTerm} have an existing object of directives within this classes interface: ${name}`)
+            if (
+              (instance !== 'Object' || instance !== 'Function') &&
+              !$$interface[name].type
+            )
+              protectAlert($$, name, receiver, 'type', `This property ${protectLevelTerm} have its type or declared as an object of directives within this classes interface: ${name}`)
+            if (
+              (instance === 'Object' || instance === 'Function') &&
+              !$$interface[name].types
+            )
+              protectAlert($$, name, receiver, 'type', `This property ${protectLevelTerm} have its argument's types declared as an object of directives withinin this classes interface: ${name}`)
+            if (instance === 'Function' && !$$interface[name].returns)
+              protectAlert($$, name, receiver, 'type', `This property ${protectLevelTerm} have its return type declared as a string withinin this property's directives detailed in the class interface: ${name}`)
+            if ($$protectedMasterArray.includes(name))
+              protectAlert($$, name, receiver, 'reference', `This property ${level >= 2 ? 'can' : 'should'} not be accessed outside of it's classes execution context: ${name}`)
+
+            return $$[name]
+          },
+          set: ($$, property, value) => {
+
+          }
+        }
+      }
+      const { value, instance, name } = metadata($$)
+      const { before = false, after = false, returns = false, types = false } = $$interface
+      let maintainTypeCheck
+      switch (instance) {
+        case 'Boolean':
+          return Object.preventExtensions(Object.seal(new Proxy({ $$: new Boolean(value) }, primitiveHandler({ type: 'boolean', before: before, after: after }))))
+        case 'String':
+          return Object.preventExtensions(Object.seal(new Proxy({ $$: new String(value) }, primitiveHandler({ type: 'string', before: before, after: after }))))
+        case 'Number':
+          return Object.preventExtensions(Object.seal(new Proxy({ $$: new Number(value) }, primitiveHandler({ type: 'number', before: before, after: after }))))
+        case 'BigInt':
+          return Object.preventExtensions(Object.seal(new Proxy({ $$: new BigInt(value) }, primitiveHandler({ type: 'bigint', before: before, after: after }))))
+        case 'Symbol':
+          return Object.preventExtensions(Object.seal(new Proxy({ $$: value }, primitiveHandler({ type: 'symbol', before: before, after: after }))))
+        case 'Array':
+          maintainTypeCheck = new Set(value.map(i => typeof i)).size <= 1 && value[0] && typeof value[0]
+          value.__proto__.push = pushValue => {
+            if (maintainTypeCheck && maintainTypeCheck !== typeof pushValue)
+              return protectAlert(value, name, value, 'type', `This array takes values of type ${capitalize(maintainTypeCheck)} and you have provided a value of type ${metadata(pushValue).instance}`)
+            return value[value.length + 1] = pushValue
+          }
+          return Object.preventExtensions(Object.seal(new Proxy({ $$: new Proxy(value, primitiveHandler({ type: maintainTypeCheck, before: before, after: after })) }, arrayHandler({ type: maintainTypeCheck, before: before, after: after }))))
+        case 'Object':
+          maintainTypeCheck = new Set(Array.from(value).map(i => typeof i)).size <= 1 && Object.values(value)[0] && typeof Object.values(value)[0]
+          return new Proxy({ $$: new Proxy(value, primitiveHandler({ type: maintainTypeCheck, before: before, after: after })) }, objectHandler)
+        case 'Function':
+          if (classCheck(value)) {
+            return Object.preventExtensions(
+              Object.seal(
+                {
+                  $$: new Proxy(
+                    class Protecting extends value {
+                      'use strict';
+                      constructor() {
+                        super()
+                        const $$extend = this.$$extend === true
+                        const $$log = this.$$log === true
+                        const $$access = new Proxy({ $$: false }, primitiveHandler({ type: 'boolean' }))
+                        const $$protectCheck = property => {
+                          return property.startsWith('$$') || property.startsWith('_$')
+                        }
+                        const $$protected = {
+                          methods: [],
+                          properties: []
+                        }
+                        Object.getOwnPropertyNames(new value).filter(
+                          property => {
+                            if ($$protectCheck(property))
+                              $$protected.properties.push(property)
+                            return
+                          }
+                        )
+                        Object.getOwnPropertyNames(value.prototype).filter(
+                          property => {
+                            if ($$protectCheck(property))
+                              $$protected.methods.push(property)
+                            return
+                          }
+                        )
+                        if ($$log) {
+                          console.group('%c=$$= Protect JS', protectAlertHeaderStyles(), '〉〉〉〉 📑 Log')
+                          console.trace('Protected:', $$protected)
+                          console.groupEnd()
+                        }
+                        const $$this = $$extend ? value : Object.preventExtensions(value)
+                        return new Proxy(new $$this, classHandler({ $$protectCheck: $$protectCheck, $$interface: $$interface, $$protected: $$protected, $$class: value }))
+                      }
+                    }, {
+                      set: () => {
+                        return
+                      }
+                    }
+                  )
+                }
+              )
+            )
+          }
+          return new Proxy({ $$: value }, functionHandler({ types: types, before: before, after: after, returns: returns }))
+        default:
+          return
+      }
+      return metadata
     }
-  return new TypeError(`You must provide a class: ${BaseClass.name || 'undefined'}`)
+    return { $$: $$ }
+  }
 }

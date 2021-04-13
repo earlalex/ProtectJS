@@ -1,150 +1,252 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width">
-  <meta name="description" content="ProtectJS is a dynamic type checking and enforcement class decorator that extends the window object.">
-	<title>ProtectJS</title>
-  <link href="enlighterjs/enlighterjs.min.css" rel="stylesheet" type="text/css"/>
-	<link href="css/style.css" rel="stylesheet" type="text/css" />
-  <script type="module" src="js/protect.min.js"></script>
+	<meta name="description" content="Protect JS is a dynamic type checking and enforcement decorator.">
+	<meta name="theme-color" content="#444444">
+	<title>Protect JS</title>
+	<link rel="manifest" href="/site.webmanifest">
+	<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+	<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+	<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+	<link rel="stylesheet" href="css/theme.css">
 </head>
 
-<body>
-	<header>
-    <div>
-		<h1><img class="logo" src="img/pjs-logo.svg" alt="ProtectJS logo." > ProtectJS</h1>
-    <h2>Pledged to protect and serve Javascript classes.</h2>
+<body light>
+	<header dark>
+		<div>
+			<h1 id="title" flex><img loading="lazy" id="logo"src="img/protect-js-logo.svg" alt="Protect JS logo.">Protect JS</h1>
     </div>
-    <p>Keep calm it's only <img class="logo" src="img/js-logo.png" alt="Javascript"><span style="display:none">Javasript</span></p>
+    <i><img loading="lazy" light-filter src="img/javascript-logo.png" alt="Javascript"><span hide>Javasript</span></i>
   </header>
   <main>
-    <article>
-      <i><img src="img/alarm-light.png" alt="Flashing alarm." class="flash"></i>
-      <section>
-      <h1>Code has the right to remain protected.</h1>
-      <p><a href="https://github.com/earlalex/ProtectJS"><img src="img/gh-logo.png" alt="ProtectJS Github repository.">&nbsp;- Source</a><a href="https://github.com/earlalex"><img src="img/gh-logo.png" alt="Github repository for user earlalex.">&nbsp;- Author</a></p>
-      <code>
-      <pre>
-<blockquote>/*
+      <h1 hide>Thank you for visiting.</h1>
+      <article flex>
+        <h1 hide>Dynamically Aware JavaScript</h1>
+        <section>
+          <details>
+            <summary>
+              <h1 id="page-title" flex>Dynamically Aware JavaScript<i><img loading="lazy" dark-filter shake src="img/present.png" title="The Unreasonable Effectiveness of Dynamic Typing for Practical Programs" alt="Video show link."></i></h1>
+            </summary>
+            <noscript flex><p>You will need to enable JavaScript or re-establish an internet connect to view the video.</p><i><img loading="lazy" dark-filter src="img/novideo.png" alt="No video icon."/></i></noscript>
+            <div video>
+              <iframe loading="lazy" src="https://player.vimeo.com/video/74354480?color=ff9933&portrait=0" title="The Unreasonable Effectiveness of Dynamic Typing for Practical Programs"  width="100%" frameborder="0" allow="autoplay; fullscreen; picture-in-picture">
+              </iframe>
+            </div>
+            <p caption>
+              <code>
+                <a target="_blank" rel="noreferrer noindex nofollow" href="https://vimeo.com/74354480">The Unreasonable Effectiveness of Dynamic Typing for Practical Programs</a> - JavaZone
+              </code>
+            </p>
+          </details>
 
-      ProtectJS is a dynamic type checking and enforcement class decorator that extends the window object: window.__Protect__
+          <code JS flex>
+            <p caption flex>
+              <a flex target="_blank" rel="noreferrer noindex nofollow" href="https://github.com/earlalex"><i dark-filter github shake><img loading="lazy" src="img/github-logo.png" alt="Github repository for the author of Protect JS."></i>Author</a>
+              <a flex rel="noreferrer noindex nofollow" target="_blank" href="https://github.com/earlalex/ProtectJS"><i dark-filter github shake><img loading="lazy" src="img/github-logo.png" alt="Protect JS Github repository."></i>Source</a>
+              <label switch>
+                <label for="switch" hide>Code View Background Color</label> 
+                <input id="switch" type="checkbox">
+                <span slider></span>
+              </label>
+            </p>
+            <pre light>
+<q>/*
+  Set a variable you that may be changed later but safegaurd it's type.
+*/</q>
+<p>let</p> <b>$protectedString</b>     = $$ =<i>'string'</i>
 
-      A protected class can only be instantiated and accessed using the new reserved word.
+<p>let</p> <b>$protectedNumber</b>     = $$ = <p>0</p>
 
-      The first parameter must be a boolean value to determining if the protected class can be extended.
+<p>let</p> <b>$protectedBoolean</b>    = $$ = <p>false</p> || <p>true</p>
 
-      Declare protected methods and properties by adding double underscores __ to the beginning of their name.
+<q>/*
+  Maintain the type of data an array can hold.
+*/</q>
+<p>let</p> <b>$protectedArray</b>      = $$ = []
 
-*/</blockquote>
+<q>/*
+  Ensure this object's property values maintain their same types once set.
+*/</q>
+<p>let</p> <b>$protectedObject</b>     = $$ = {}
 
-<i>const</i> <b>MyClass</b> = __Protect__(true, <i>class</i> <b>MyClass</b> {
-  constructor() {
+<q>/* 
+   Declare functional interfaces and gaurd against unwanted results.
 
-<blockquote>/*
+   Protected functions and classes enforce strict mode.
+*/</q>
+<p>const</p> <b>$protectedFunction</b> = $$ = ({
 
-    __Debug__: You can enable debuging which will print out the class's protected properties and methods in the console.
+  <q>/*
+    Enforces named arguments and type declarations with an option default.
+*/</q>
+  <b>arg1</b>     = {
 
-*/</blockquote>
-    <i>this</i>.__Debug__ = true
+    type    :<i>'string'</i>,
 
-<blockquote>/*
+    default :<i>'This is a string.'</i>,
+  },
 
-    __Interface__: Declare the class interface for method types in the constructer as an object.
+  <b>arg2</b>     = {
 
-*/</blockquote>
-    <i>this</i>.__Interface__ = {
+    type :<i>'object'</i>,
+  },
+  
+  <q>/*
+    Gather data or mutate parameters passed into a function with a "Before Effect".
+*/</q>
+  <b>__before</b> = <b>params</b> => <b>params</b>,
+  
+  <q>/*
+    Perform clean up or mutate the results of a function with an "After Effect".
+*/</q>
+  <b>__after</b>  = <b>results</b> => <b>results</b>,
 
-<blockquote>/*
-      
-      Public Methods: Methods do not have to take any arguments but you still need to specify a return type. Use the method name as a property of the interface.
+  <q>/*
+    Mandate the type of data to be returned with an optional default.
+*/</q>
+  <b>__return</b> = {
 
-*/</blockquote>
-      publicMethod: {
+    type    :<i>'string'</i>,
 
-<blockquote>/*
-        
-        Before Effect: This function will run before the function called and will pass along it's returned results as an argument out side of name arguments object.
-        
-*/</blockquote>
-        __before: params => {
-          <i>return</i> params
+    default :<i>'You did not pass any arguments.'</i>
+  }
+}) => {
+  
+  <q>/*
+    Do work...
+*/</q>
+  <p>const</p> <b>string1</b> = <p>typeof</p> <b>arg2</b>
+
+  <q>/*
+    Do not break the law.
+*/</q>
+  <p>return</p><i>`${<b>arg1</b>} and ${<b>string1</b>}`</i>
+}
+
+<p>const</p> <b>$MyClass</b> = $$ = <p>class</p> <b>MyClass</b> {
+
+  <p>constructor</p>() {
+
+    <p>this</p>.<b>__Extend__</b>    = <p>true</p>
+
+    <p>this</p>.<b>__Debug__</b>     = <p>true</p>
+
+    <p>this</p>.<b>__Interface__</b> = {
+
+      publicMethod : {
+
+        <b>arg1</b>     = {
+
+          type    :<i>'string'</i>,
+
+          default :<i>'This is a string.'</i>,
         },
 
-<blockquote>/*
-        
-        After Effect: This function will run after the function called and will have the results of the called function as it's only argument.
+        <b>arg2</b>     = {
 
-*/</blockquote>
-        __after: results => results,
+          type    :<i>'object'</i>,
+        },
 
-<blockquote>/*
-        
-        Parameter Type Check: the named argment's name must be the key and the value must a value JS type. You may use *, any or do not specify the named argument as a property to disable type checking.
+        <b>__before</b> = <b>params</b> => <b>params</b>,
 
-*/</blockquote>
-        string1: 'string',
+        <b>__after</b>  = <b>results</b> => <b>results</b>,
 
-<blockquote>/*
-        
-        Return Type Check: This is how you specifiy the type that must be returned from the function called. Before and after effects can return any type.
+        <b>__return</b> = {
 
-*/</blockquote>
-        __return: 'string'
+          type    :<i>'string'</i>,
+
+          default :<i>'You did not pass in anything.'</i>
+        }
       },
 
-<blockquote>/*
-      
-      Protected Methods: Protected methods can not have before or after effects.
+      __protectedMethod : {
 
-*/</blockquote>
-      __protectedMethod: {
-        __return: 'function'
+        __return :<i>'function'</i>
       },
 
+      publicInterface : {
+
+        __return :<i>'object'</i>
+      }
     }
-  }
-)
-      </pre>
-      </code>
 
-      </section>
-      <section>
-      <div>
-        <h3><img src="img/footprint.png" alt="ProtectJS logo." ><small>Small Footprint</small></h3>
-        <ul>
-          <li>2.8kb minified</li>
-          <li>No importing</li>
-          <li>No dependencies</li>
-        </ul>
-      </div>
-      <div>
-        <h3><img src="img/development.png" alt="ProtectJS logo." ><small>Runtime Ready</small></h3>
-        <ul>
-          <li>An easy-to-use class decorator</li>
-          <li>No event listeners</li>
-          <li>Modern and stable</li>
-        </ul>
-      </div>
-      <div>
-        <h3><img src="img/strong.png" alt="ProtectJS logo." ><small>Minimal Yet Powerful</small></h3>
-        <ul>
-          <li>Dynamic type checking</li>
-          <li>Restricted methods and properties</li>
-          <li>Custom insightful errors</li>
-        </ul>
-      </div>
-      </section>
-    </article>
+    <p>this</p>.<b>publicProperty</b>      = <p>true</p>
+
+    <p>this</p>.<b>__protectedProperty</b> = <p>false</p>
+  }
+
+  <b>publicInterface</b>({}, <b>bypass</b>) {
+  
+    console.<b>log</b>(<b>bypass</b>)
+
+    <p>return</p> <p>this</p>.<b>__Interface__</b>
+  }
+
+  <b>publicMethod</b>({ <b>arg1</b>, <b>arg2</b> }, <b>beforeEffectResult</b>) {
+    
+    <p>this</p>.<b>__protectedMethod</b>({ before: <b>beforeEffectResult</b> })
+    
+    <p>let</p> <b>string1</b> = <p>typeof</p> <b>arg2</b>
+    
+    <p>return</p><i>`${<b>arg1</b>} and ${<b>string1</b>}`</i>
+  }
+
+  <b>__protectedMethod</b>({ <b>before</b> }) {
+    
+    <p>return</p> console.<b>info</b>(<i>'__protectedMethod:'</i>, <b>before</b>)
+  }
+}
+
+console.<b>log</b>(<b>$protectedFunction</b>({arg1:<i>'I sure am a string!'</i>,arg2:{}}))
+            </pre>
+          </code>
+          <div id="story">
+            <h2>
+              <a href="https://www.typescriptlang.org/" alt="Typescript">TypeScript</a> Inspired
+            </h2>
+            <p>
+              While using TypeScript questions formed and ideas emerged...
+              <blockquote flex><i><img loading="lazy" dark-filter src="img/lightbulb.png" alt="Lightbulb to show having an idea."></i><div><p>What about dynamic type checking?</p><p>Could it help secure code in the wild?</p><p>Any runtime alternatives?</p></div></blockquote>
+            </p>
+            <p>Protect JS to the rescue.</p>
+            <p flex>Documentation:<a rel="noreferrer noindex nofollow" target="_blank" href="https://github.com/earlalex/ProtectJS"><i shake><img loading="lazy" dark-filter src="img/manual.png" alt="Icon for docuementation link."></i><span hide>Documentation</span></a></p>
+          </div>
+        </section>
+        <aside>
+          <div class="card" dark>
+            <h3 class="card-title" flex><i light-filter><img loading="lazy" src="img/development.png" alt="Runtime Ready" ></i>Runtime Ready</h3>
+            <ul>
+              <li>Simple to use</li>
+              <li>Visually Expressive</li>
+              <li>Modern and stable</li>
+            </ul>
+          </div>
+          <div class="card" dark>
+            <h3 class="card-title" flex><i light-filter><img loading="lazy" src="img/strong.png" alt="Powerful" ></i>Powerful</h3>
+            <ul>
+              <li>Dynamic type checking</li>
+              <li>Class interfaces</li>
+              <li>Before & after callbacks</li>
+            </ul>
+          </div>
+          <div class="card" dark>
+            <h3 class="card-title" flex><i light-filter><img loading="lazy" src="img/footprint.png" alt="Small Footprint" ></i>Small Footprint</h3>
+            <ul>
+              <li>2.64kb Minified / 1.26kb Gz</li>
+              <li>No importing</li>
+              <li>No dependencies</li>
+            </ul>
+          </div>
+        </aside>
+      </article>
   </main>
   <footer>
-    <br>
-    <p>Current Release: 5/1/2021 | Version: 1.0.0 | Opensource and free to use under the MIT License V3</p>
-    <br>
+    <p flex><i><img loading="lazy" src="img/protect-js-logo.svg" alt="Protect JS"></i>Open sourced, free to use and extend. <a target="_black" rel="noreferrer noindex nofollow" href="https://opensource.org/licenses/MIT">MIT License V3</a></p>
   </footer>
-  <script src="enlighterjs/enlighterjs.min.js"></script>
-	<script src="js/script.js" type="module"></script>
-</body>
-
+	<script src="js/protect.js" async></script>
+	<script src="js/main.js" defer></script>
+ </body>
 </html>
